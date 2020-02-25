@@ -21,9 +21,7 @@ public class PetEntity {
     @Enumerated(EnumType.STRING)
     PetType type;
     String name;
-    @Column(name = "owner_id")
     long ownerId;
-    @Column(name = "birth_date")
     LocalDate birthDate;
     String notes;
 }

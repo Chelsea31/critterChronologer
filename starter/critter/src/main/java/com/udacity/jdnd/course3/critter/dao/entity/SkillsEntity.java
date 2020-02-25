@@ -6,6 +6,8 @@ package com.udacity.jdnd.course3.critter.dao.entity;
 
 import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -17,7 +19,10 @@ public class SkillsEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long skillsId;
 
-    @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToOne(optional = false)
+    @PrimaryKeyJoinColumn(name = "employee_id")
     EmployeeEntity employee;
 
     @Enumerated(EnumType.STRING)

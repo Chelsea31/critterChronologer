@@ -5,6 +5,8 @@ package com.udacity.jdnd.course3.critter.dao.entity;
  */
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,9 +18,18 @@ public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long employeeId;
+
     private String name;
-    @OneToMany
+
+    @OneToMany(mappedBy = "employee",
+            cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<SkillsEntity> skills;
-    @OneToMany
+
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn(name = "days_available_id")
     private Set<DaysAvailableEntity> daysAvailable;
 }

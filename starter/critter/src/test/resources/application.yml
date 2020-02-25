@@ -2,7 +2,7 @@ server:
   port: 8082
 
 spring:
-  profiles: local
+  profiles: test
   application:
     name: critter-chronologer
   jpa:

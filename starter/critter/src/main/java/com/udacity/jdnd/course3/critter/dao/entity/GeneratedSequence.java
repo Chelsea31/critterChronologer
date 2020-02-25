@@ -9,14 +9,10 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
+@Table
 @Data
-@Table(name = "customer")
-public class CustomerEntity {
-
+public class GeneratedSequence {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
-    String name;
-    String phoneNumber;
-    String notes;
+    Long id;
 }

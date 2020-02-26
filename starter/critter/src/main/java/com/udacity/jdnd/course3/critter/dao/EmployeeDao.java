@@ -4,27 +4,23 @@ package com.udacity.jdnd.course3.critter.dao;
  * @author Shubham Bansal
  */
 
-import com.udacity.jdnd.course3.critter.dao.entity.*;
-import com.udacity.jdnd.course3.critter.dao.repository.*;
-import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
+import com.udacity.jdnd.course3.critter.dao.entity.DaysAvailableEntity;
+import com.udacity.jdnd.course3.critter.dao.entity.EmployeeEntity;
+import com.udacity.jdnd.course3.critter.dao.entity.SkillsEntity;
+import com.udacity.jdnd.course3.critter.dao.repository.DaysAvailableRepository;
+import com.udacity.jdnd.course3.critter.dao.repository.EmployeeRepository;
+import com.udacity.jdnd.course3.critter.dao.repository.SkillsRepoistory;
+import com.udacity.jdnd.course3.critter.model.user.EmployeeSkill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class ChronologerDao {
-
-    @Autowired
-    CustomerRepository customerRepository;
-
-    @Autowired
-    PetsRepository petsRepository;
-
+public class EmployeeDao {
     @Autowired
     DaysAvailableRepository daysAvailableRepository;
 
@@ -34,29 +30,10 @@ public class ChronologerDao {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public CustomerEntity addCustomer(CustomerEntity customer) {
-        return customerRepository.save(customer);
-    }
-
-    public PetEntity addPet(PetEntity pet) {
-        return petsRepository.save(pet);
-    }
-
     public EmployeeEntity addEmployee(EmployeeEntity employeeEntity) {
         return employeeRepository.save(employeeEntity);
     }
 
-    public List<PetEntity> getPetsByOwnerId(long ownerId) {
-        return petsRepository.findAllByOwnerId(ownerId);
-    }
-
-    public CustomerEntity getOwnerByPetId(long petId) {
-        Optional<PetEntity> petEntity = petsRepository.findById(petId);
-        if (petEntity.isPresent()) {
-            return customerRepository.findById(petEntity.get().getOwnerId()).get();
-        }
-        return null;
-    }
 
     public void updateEmployee(Set<DayOfWeek> daysAvailable, long employeeId) {
         EmployeeEntity employeeEntity = getEmployee(employeeId);
@@ -81,7 +58,7 @@ public class ChronologerDao {
                 .collect(Collectors.toList());
     }
 
-    public DaysAvailableEntity getEmployeeFromDateAndEmployeeId(long employeeId, DayOfWeek dayOfWeek){
+    public DaysAvailableEntity getEmployeeFromDateAndEmployeeId(long employeeId, DayOfWeek dayOfWeek) {
         return daysAvailableRepository.findByEmployeeEmployeeIdAndDayOfWeek(employeeId, dayOfWeek);
     }
 

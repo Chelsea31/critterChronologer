@@ -1,4 +1,4 @@
-package com.udacity.jdnd.course3.critter.user;
+package com.udacity.jdnd.course3.critter.model.user;
 
 import java.time.DayOfWeek;
 import java.util.Set;

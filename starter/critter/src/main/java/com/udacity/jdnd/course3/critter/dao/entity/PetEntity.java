@@ -4,7 +4,7 @@ package com.udacity.jdnd.course3.critter.dao.entity;
  * @author Shubham Bansal
  */
 
-import com.udacity.jdnd.course3.critter.pet.PetType;
+import com.udacity.jdnd.course3.critter.model.pet.PetType;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -5,7 +5,7 @@ package com.udacity.jdnd.course3.critter.dao.repository;
  */
 
 import com.udacity.jdnd.course3.critter.dao.entity.SkillsEntity;
-import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
+import com.udacity.jdnd.course3.critter.model.user.EmployeeSkill;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Set;

@@ -4,7 +4,7 @@ package com.udacity.jdnd.course3.critter.dao.entity;
  * @author Shubham Bansal
  */
 
-import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
+import com.udacity.jdnd.course3.critter.model.user.EmployeeSkill;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

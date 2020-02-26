@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "schedule")
 @Data
-@Builder
 public class ScheduleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

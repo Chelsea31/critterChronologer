@@ -44,14 +44,11 @@ public class ScheduleService {
     }
 
     private ScheduleEntity createScheduleEntity(GeneratedSequence sequence, long employeeId, long petId, EmployeeSkill activity, LocalDate date) {
-        ScheduleEntity scheduleEntity = ScheduleEntity
-                .builder()
-                .activity(activity)
-                .date(date)
-                .employeeId(employeeId)
-                .petId(petId)
-                .build();
-
+        ScheduleEntity scheduleEntity = new ScheduleEntity();
+        scheduleEntity.setActivity(activity);
+        scheduleEntity.setDate(date);
+        scheduleEntity.setEmployeeId(employeeId);
+        scheduleEntity.setPetId(petId);
         scheduleEntity.setGeneratedSequence(sequence);
         return scheduleEntity;
     }
@@ -64,7 +61,6 @@ public class ScheduleService {
 
     public List<ScheduleDTO> getScheduleForEmployee(long employeeId) {
         List<ScheduleEntity> scheduleByEmployeeId = scheduleDao.getScheduleByEmployeeId(employeeId);
-        scheduleByEmployeeId.get(0).getGeneratedSequence().getId();
         scheduleByEmployeeId = getScheduleEntitiesByGeneratedSequence(scheduleByEmployeeId);
         return Lists.newArrayList(mapScheduleEntityToDto(scheduleByEmployeeId));
     }
@@ -88,7 +84,7 @@ public class ScheduleService {
     public List<ScheduleDTO> getScheduleForCustomer(long customerId) {
         List<PetDTO> petsByOwner = petService.getPetsByOwner(customerId);
         List<ScheduleEntity> scheduleEntityList = new ArrayList<>();
-        petsByOwner.stream().map(petDTO -> scheduleDao.getScheduleByPetId(petDTO.getId())).peek(scheduleEntities -> scheduleEntityList.addAll(scheduleEntities)).collect(Collectors.toSet());
+        petsByOwner.stream().map(petDTO -> scheduleDao.getScheduleByPetId(petDTO.getId())).peek(scheduleEntityList::addAll).collect(Collectors.toSet());
         return Lists.newArrayList(mapScheduleEntityToDto(scheduleEntityList));
     }
 }

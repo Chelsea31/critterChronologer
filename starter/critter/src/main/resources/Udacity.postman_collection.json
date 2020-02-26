@@ -1,12 +1,24 @@
 {
 	"info": {
-		"_postman_id": "3da4eeec-6238-471f-ab55-ce0d742fa76e",
+		"_postman_id": "2455a799-7d15-442a-99c4-88efc5b5f312",
 		"name": "Udacity",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Save Customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "715ff868-1db4-4a92-87fe-fd6c4ddd1b3e",
+						"exec": [
+							"pm.collectionVariables.set(\"customer_id\",pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -43,6 +55,18 @@
 		},
 		{
 			"name": "Save Pet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1f0a268-60c7-4664-8b79-028492c009c9",
+						"exec": [
+							"pm.collectionVariables.set(\"pet_id\",pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -55,7 +79,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"type\": \"CAT\",\r\n  \"name\": \"Kilo\",\r\n  \"birthDate\": \"2019-12-16T04:43:57.995Z\",\r\n  \"notes\": \"HI KILO\"\r\n}",
+					"raw": "{\r\n  \"type\": \"CAT\",\r\n  \"name\": \"Kilo\",\r\n  \"ownerId\":{{customer_id}},\r\n  \"birthDate\": \"2019-12-16T04:43:57.995Z\",\r\n  \"notes\": \"HI KILO\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -63,15 +87,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/pet/1",
+					"raw": "http://localhost:8082/pet",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"pet",
-						"1"
+						"pet"
 					]
 				}
 			},
@@ -79,6 +102,18 @@
 		},
 		{
 			"name": "Save Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6cb8278e-c4c8-46b2-bd12-b7f73ee2c845",
+						"exec": [
+							"pm.collectionVariables.set(\"employee_id\",pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -115,6 +150,18 @@
 		},
 		{
 			"name": "Add Employee Schedule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "38179722-47ee-4aed-b52b-b7e08a35e470",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -135,7 +182,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/user/employee/1",
+					"raw": "http://localhost:8082/user/employee/{{employee_id}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -144,7 +191,7 @@
 					"path": [
 						"user",
 						"employee",
-						"1"
+						"{{employee_id}}"
 					]
 				}
 			},
@@ -193,7 +240,7 @@
 		{
 			"name": "Create Schedule",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -204,7 +251,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\"MONDAY\", \"TUESDAY\", \"FRIDAY\"]",
+					"raw": "{\n\t\"employeeIds\":[{{employee_id}}],\n\t\"petIds\":[{{pet_id}}],\n\t\"date\":\"2020-12-16T04:43:57.995Z\",\n\t\"activities\":[\n\t\t\"FEEDING\",\n        \"PETTING\"\n        ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -212,16 +259,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/user/employee/1",
+					"raw": "http://localhost:8082/schedule",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"user",
-						"employee",
-						"1"
+						"schedule"
 					]
 				}
 			},
@@ -252,7 +297,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/schedule/pet/1",
+					"raw": "http://localhost:8082/schedule/pet/{{pet_id}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -261,7 +306,7 @@
 					"path": [
 						"schedule",
 						"pet",
-						"1"
+						"{{pet_id}}"
 					]
 				}
 			},
@@ -292,7 +337,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/schedule/employee/2",
+					"raw": "http://localhost:8082/schedule/employee/{{employee_id}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -301,7 +346,7 @@
 					"path": [
 						"schedule",
 						"employee",
-						"2"
+						"{{employee_id}}"
 					]
 				}
 			},
@@ -332,7 +377,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/schedule/employee/2",
+					"raw": "http://localhost:8082/schedule/customer/{{customer_id}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -340,8 +385,8 @@
 					"port": "8082",
 					"path": [
 						"schedule",
-						"employee",
-						"2"
+						"customer",
+						"{{customer_id}}"
 					]
 				}
 			},
@@ -411,15 +456,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/user/customer",
+					"raw": "http://localhost:8082/pet",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"user",
-						"customer"
+						"pet"
 					]
 				}
 			},
@@ -450,7 +494,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/pet/owner/1",
+					"raw": "http://localhost:8082/pet/owner/{{customer_id}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -459,7 +503,7 @@
 					"path": [
 						"pet",
 						"owner",
-						"1"
+						"{{customer_id}}"
 					]
 				}
 			},
@@ -490,7 +534,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/user/customer/pet/1",
+					"raw": "http://localhost:8082/user/customer/pet/{{pet_id}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -500,11 +544,53 @@
 						"user",
 						"customer",
 						"pet",
-						"1"
+						"{{pet_id}}"
 					]
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "737ab77d-39f6-422b-ae46-3bb9be3a56f7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ddfeb41e-05ea-41e2-8024-09675161d630",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "98fcf333-5739-480b-bff8-ac780d72683a",
+			"key": "employee_id",
+			"value": 38,
+			"type": "number"
+		},
+		{
+			"id": "902816cc-b8f1-41c8-b0ce-14103e7e07c5",
+			"key": "customer_id",
+			"value": 36,
+			"type": "number"
+		},
+		{
+			"id": "b5122e6b-f7db-4a96-8b75-1541e32b1a8a",
+			"key": "pet_id",
+			"value": 37,
+			"type": "number"
 		}
 	],
 	"protocolProfileBehavior": {}

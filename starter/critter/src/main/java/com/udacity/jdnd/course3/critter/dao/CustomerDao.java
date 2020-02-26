@@ -11,6 +11,7 @@ import com.udacity.jdnd.course3.critter.dao.repository.PetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -24,6 +25,10 @@ public class CustomerDao {
 
     public CustomerEntity addCustomer(CustomerEntity customer) {
         return customerRepository.save(customer);
+    }
+
+    public List<CustomerEntity> getAllCustomers() {
+        return customerRepository.findAll();
     }
 
     public CustomerEntity getOwnerByPetId(long petId) {

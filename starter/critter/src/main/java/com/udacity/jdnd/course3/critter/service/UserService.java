@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,10 @@ public class UserService {
 
     @Autowired
     ObjectMapper mapper;
+
+    public List<CustomerDTO> getAllCustomers() {
+        return customerDao.getAllCustomers().stream().map(customerEntity -> mapper.convertValue(customerEntity, CustomerDTO.class)).collect(Collectors.toList());
+    }
 
     public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
         try {

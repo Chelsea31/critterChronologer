@@ -1,9 +1,9 @@
 package com.udacity.jdnd.course3.critter.controller;
 
-import com.udacity.jdnd.course3.critter.service.UserService;
 import com.udacity.jdnd.course3.critter.model.user.CustomerDTO;
 import com.udacity.jdnd.course3.critter.model.user.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.model.user.EmployeeRequestDTO;
+import com.udacity.jdnd.course3.critter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +31,7 @@ public class UserController {
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers() {
-        throw new UnsupportedOperationException();
+        return userService.getAllCustomers();
     }
 
     @GetMapping("/customer/pet/{petId}")
